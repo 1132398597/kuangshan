@@ -20,6 +20,10 @@
         <span class="icon">👥</span>
         <span>员工管理</span>
       </router-link>
+      <router-link to="/electric-vehicle" :class="{ active: $route.path === '/electric-vehicle' }" class="nav-item">
+        <span class="icon">🚲</span>
+        <span>绿源电动车</span>
+      </router-link>
     </nav>
   </aside>
 </template>

@@ -113,5 +113,33 @@ INSERT INTO pollution_data (enterprise_id, pollution_index, pm25, pm10, so2, no2
 (3, 38.00, 30.00, 45.00, 22.00, 26.00, 'LOW', DATE_SUB(NOW(), INTERVAL 1 HOUR)),
 (4, 73.00, 58.00, 87.00, 43.00, 50.50, 'HIGH', DATE_SUB(NOW(), INTERVAL 1 HOUR));
 
+-- 创建绿源电动车表
+CREATE TABLE electric_vehicle (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '车辆ID',
+    vehicle_code VARCHAR(50) NOT NULL UNIQUE COMMENT '车辆编码',
+    brand VARCHAR(50) NOT NULL DEFAULT '绿源' COMMENT '品牌',
+    model VARCHAR(100) COMMENT '型号',
+    license_plate VARCHAR(50) COMMENT '车牌号',
+    enterprise_id BIGINT COMMENT '所属企业ID',
+    driver_name VARCHAR(50) COMMENT '驾驶员姓名',
+    purchase_date DATE COMMENT '购买日期',
+    battery_capacity DECIMAL(10, 2) COMMENT '电池容量(kWh)',
+    status ENUM('ACTIVE', 'MAINTENANCE', 'SCRAPPED') NOT NULL DEFAULT 'ACTIVE' COMMENT '状态: ACTIVE/MAINTENANCE/SCRAPPED',
+    remarks VARCHAR(500) COMMENT '备注',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    FOREIGN KEY (enterprise_id) REFERENCES mine_enterprise(id) ON DELETE SET NULL,
+    INDEX idx_code (vehicle_code),
+    INDEX idx_enterprise_id (enterprise_id),
+    INDEX idx_status (status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='绿源电动车表';
+
+-- 插入示例数据 - 绿源电动车
+INSERT INTO electric_vehicle (vehicle_code, brand, model, license_plate, enterprise_id, driver_name, purchase_date, battery_capacity, status) VALUES
+('EV001', '绿源', 'TDT2123Z', '陕A-EV001', 1, '张三', '2023-03-15', 72.00, 'ACTIVE'),
+('EV002', '绿源', 'TDT2423Z', '晋B-EV002', 2, '李四', '2023-06-20', 96.00, 'ACTIVE'),
+('EV003', '绿源', 'TDT1823Z', '晋C-EV003', 3, '王五', '2022-11-10', 60.00, 'MAINTENANCE'),
+('EV004', '绿源', 'TDT2423Z', '鲁H-EV004', 4, '赵六', '2023-01-05', 96.00, 'ACTIVE');
+
 -- Database initialization completed
 SELECT 'Database initialized successfully!' AS message;

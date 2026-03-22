@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import MineEnterprise from '../views/MineEnterprise.vue'
 import MineralManagement from '../views/MineralManagement.vue'
 import EmployeeManagement from '../views/EmployeeManagement.vue'
+import ElectricVehicleManagement from '../views/ElectricVehicleManagement.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/employee-management',
     name: 'EmployeeManagement',
     component: EmployeeManagement
+  },
+  {
+    path: '/electric-vehicle',
+    name: 'ElectricVehicle',
+    component: ElectricVehicleManagement
   }
 ]
 
